@@ -1,10 +1,13 @@
-from flask import Flask
+from flask import Flask, request
 app = Flask(__name__)
 
 
-@app.route('/<name>', methods=['GET'])
+@app.route('/<name>', methods=['GET', 'POST'])
 def hello_world(name):
-    return "Hello, {}!".format(name)
+    if request.method == 'GET':
+        return "Hello, {}!".format(name)
+    else:
+        return "You sent: {}!".format(request.get_json())
 
 
 if __name__ == "__main__":
